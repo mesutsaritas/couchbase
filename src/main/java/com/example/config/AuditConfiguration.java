@@ -18,9 +18,6 @@ import com.example.domain.util.NaiveAuditorAware;
 @EnableCouchbaseAuditing
 public class AuditConfiguration extends AbstractCouchbaseConfiguration {
 
-     // ... a few abstract methods omitted here
-
-     // this creates the auditor aware bean that will feed the annotations
      @Bean
      public NaiveAuditorAware testAuditorAware() {
           return new NaiveAuditorAware();
@@ -28,19 +25,16 @@ public class AuditConfiguration extends AbstractCouchbaseConfiguration {
 
      @Override
      protected List<String> getBootstrapHosts() {
-          // TODO Auto-generated method stub
           return Collections.singletonList("127.0.0.1");
      }
 
      @Override
      protected String getBucketName() {
-          // TODO Auto-generated method stub
           return "netascouchdb";
      }
 
      @Override
      protected String getBucketPassword() {
-          // TODO Auto-generated method stub
           return "vtys";
      }
 }
