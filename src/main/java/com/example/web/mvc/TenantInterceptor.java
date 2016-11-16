@@ -18,7 +18,7 @@ public class TenantInterceptor extends HandlerInterceptorAdapter {
      @Override
      public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
 
-          TenantContext.setCurrentTenant("carrefoursa");
+          TenantContext.setCurrentTenant("netmetriks");
 
           return true;
      }

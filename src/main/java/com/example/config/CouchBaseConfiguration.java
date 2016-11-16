@@ -16,7 +16,7 @@ import com.example.domain.util.NaiveAuditorAware;
  */
 @Configuration
 @EnableCouchbaseAuditing
-public class AuditConfiguration extends AbstractCouchbaseConfiguration {
+public class CouchBaseConfiguration extends AbstractCouchbaseConfiguration {
 
      @Bean
      public NaiveAuditorAware testAuditorAware() {

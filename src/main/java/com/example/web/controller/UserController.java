@@ -7,6 +7,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.PagedResourcesAssembler;
 import org.springframework.hateoas.PagedResources;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -15,9 +16,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.domain.User;
+import com.example.exception.UserNotFoundException;
 import com.example.service.UserService;
 import com.example.web.resource.UserResource;
 import com.example.web.resource.UserResourceAssembler;
+import com.example.web.resource.util.SuccessResource;
 
 /**
  * @author msaritas
@@ -70,6 +73,18 @@ public class UserController {
      @RequestMapping(value = "/{documentId}", method = RequestMethod.GET)
      public ResponseEntity<UserResource> load(@PathVariable Long documentId) throws Exception {
           return ResponseEntity.ok().body(userResourceAssembler.toResource(userService.load(documentId)));
+     }
+
+     /**
+      * 
+      * @param id
+      * @return
+      * @throws UserNotFoundException
+      */
+     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+     public ResponseEntity<SuccessResource> remove(@PathVariable Long id) throws UserNotFoundException {
+          userService.remove(id);
+          return new ResponseEntity<>(new SuccessResource("user_deleted", "user_deleted_success"), HttpStatus.OK);
      }
 
 }

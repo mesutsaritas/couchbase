@@ -41,6 +41,7 @@ public class UserService {
      }
 
      /**
+      * POST -> inserting new user
       * 
       * @param resource
       * @return
@@ -53,7 +54,8 @@ public class UserService {
      }
 
      /**
-      *
+      * GET -> listing all the users
+      * 
       * @return
       */
      public Page<User> findAll(Pageable pageable) {
@@ -62,8 +64,9 @@ public class UserService {
      }
 
      /**
+      * GET->user by user Id
       * 
-      * @param documentId
+      * @param id
       * @return
       * @throws UserNotFoundException
       */
@@ -77,8 +80,30 @@ public class UserService {
 
      }
 
+     /**
+      * * GET -> listing all the view users
+      * 
+      * @return
+      */
      public List<User> findAll() {
           return template.findByView(ViewQuery.from(DESIGN_DOC, "all"), User.class);
+     }
+
+     /**
+      * Delete -> deleting user
+      *
+      * 
+      * @param id
+      * @throws UserNotFoundException
+      */
+     public void remove(Long id) throws UserNotFoundException {
+          User user = template.findById(id.toString(), User.class);
+          if (user != null) {
+               user.setDeleted(true);
+               userRepository.save(user);
+          } else {
+               throw new UserNotFoundException();
+          }
      }
 
 }
